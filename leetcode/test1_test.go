@@ -53,3 +53,11 @@ func Test_addTwoNumbers(t *testing.T) {
 	Shownode(newhead)
 	//	test111()
 }
+
+func Test_test1013(t *testing.T) {
+	Test1013()
+}
+
+func Test_chantest(t *testing.T) {
+	chantest()
+}

@@ -2,6 +2,7 @@ package leetcode
 
 import (
 	"fmt"
+	"time"
 )
 
 func strtoint(str string) int {
@@ -111,4 +112,60 @@ func test111() {
 		tail = &node
 	}
 	Shownode1(head) //遍历结果
+}
+
+var POOL = 100
+
+func groutine1(p chan int) {
+
+	for i := 1; i <= POOL; i++ {
+		p <- i
+		if i%2 == 1 {
+			fmt.Println("groutine-1:", i)
+		}
+	}
+}
+
+func groutine2(p chan int) {
+
+	for i := 1; i <= POOL; i++ {
+		<-p
+		// p <- i
+		if i%2 == 0 {
+			fmt.Println("groutine-2:", i)
+		}
+	}
+}
+
+func Test1013() {
+	msg := make(chan int)
+
+	go groutine1(msg)
+	go groutine2(msg)
+
+	time.Sleep(time.Second * 1)
+
+}
+
+func chantest() {
+	var NUM int
+	NUM = 100
+	chanTest := make(chan int)
+	go func() {
+		for i := 1; i <= NUM; i++ {
+			chanTest <- i
+			if i%2 == 1 {
+				fmt.Println("奇数:", i)
+			}
+		}
+	}()
+	go func() {
+		for i := 1; i <= NUM; i++ {
+			<-chanTest
+			if i%2 == 0 {
+				fmt.Println("偶数:", i)
+			}
+		}
+	}()
+	//time.Sleep(time.Second * 1)
 }
