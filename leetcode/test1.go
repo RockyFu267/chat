@@ -149,8 +149,8 @@ func Test1013() {
 
 func chantest() {
 	var NUM int
-	NUM = 100
-	chanTest := make(chan int)
+	NUM = 10000
+	chanTest := make(chan int, 10)
 	go func() {
 		for i := 1; i <= NUM; i++ {
 			chanTest <- i
@@ -167,5 +167,5 @@ func chantest() {
 			}
 		}
 	}()
-	//time.Sleep(time.Second * 1)
+	time.Sleep(time.Second * 2)
 }
